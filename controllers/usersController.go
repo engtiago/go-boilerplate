@@ -4,6 +4,7 @@ import (
 	"github.com/engtiago/go-boilerplate/initializers"
 	"github.com/engtiago/go-boilerplate/models"
 	"github.com/gofiber/fiber/v2"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type mdUser struct {
@@ -29,6 +30,8 @@ func GetUser(c *fiber.Ctx) error {
 		return result.Error
 	}
 
+	user.Password = ""
+
 	// Return it
 	return c.JSON(user)
 }
@@ -40,6 +43,10 @@ func GetUsers(c *fiber.Ctx) error {
 
 	if result.Error != nil {
 		return fiber.ErrBadGateway
+	}
+
+	for idx := range users {
+		users[idx].Password = ""
 	}
 
 	// Return it
@@ -55,8 +62,14 @@ func PostUser(c *fiber.Ctx) error {
 		return fiber.ErrBadRequest
 	}
 
+	// Hash de password
+	hash, err := bcrypt.GenerateFromPassword([]byte(body.Password), 10)
+	if err != nil {
+		return fiber.ErrBadGateway
+	}
+
 	// Create a user
-	user := models.User{Name: body.Name, Email: body.Email, Password: body.Password}
+	user := models.User{Name: body.Name, Email: body.Email, Password: string(hash)}
 	result := initializers.DB.Create(&user)
 
 	if result.Error != nil {
@@ -68,7 +81,7 @@ func PostUser(c *fiber.Ctx) error {
 	return c.JSON(user)
 }
 
-func UserPut(c *fiber.Ctx) error {
+func PutUser(c *fiber.Ctx) error {
 	// Get id
 	id := c.Params("id")
 

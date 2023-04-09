@@ -21,11 +21,14 @@ func main() {
 		AllowOrigins: "*",
 	}))
 
+	//login
+	app.Post("/login", controllers.PostLogin)
+
 	//users
 	app.Post("/users", controllers.PostUser)
 	app.Get("/users/:id", controllers.GetUser)
 	app.Get("/users", controllers.GetUsers)
-	app.Put("/users/:id", controllers.UserPut)
+	app.Put("/users/:id", controllers.PutUser)
 	app.Delete("/users/:id", controllers.DeleteUsers)
 
 	port := os.Getenv("PORT")
