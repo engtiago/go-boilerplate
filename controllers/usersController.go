@@ -14,6 +14,9 @@ type mdUser struct {
 }
 
 func GetUser(c *fiber.Ctx) error {
+	// TODO: Mudar isso depois para melhorar a esperiencia do usuário.
+	//userrr := c.Locals("user")
+
 	// Get id
 	id := c.Params("id")
 
@@ -76,7 +79,7 @@ func PostUser(c *fiber.Ctx) error {
 		c.Status(400)
 		return result.Error
 	}
-
+	user.Password = ""
 	// Return it
 	return c.JSON(user)
 }
@@ -89,7 +92,7 @@ func PutUser(c *fiber.Ctx) error {
 	var user models.User
 	resultFind := initializers.DB.Find(&user, id)
 	if resultFind.Error != nil {
-		return fiber.ErrNotFound
+		return fiber.ErrBadRequest
 	}
 
 	// Get data form body
@@ -102,9 +105,9 @@ func PutUser(c *fiber.Ctx) error {
 	resultUpdate := initializers.DB.Model(&user).Updates(models.User{Name: body.Name, Email: body.Email, Password: body.Password})
 
 	if resultUpdate.Error != nil {
-		return fiber.ErrNotFound
+		return fiber.ErrBadRequest
 	}
-
+	user.Password = ""
 	// Return it
 	return c.JSON(user)
 }

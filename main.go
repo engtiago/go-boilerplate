@@ -5,6 +5,7 @@ import (
 
 	"github.com/engtiago/go-boilerplate/controllers"
 	"github.com/engtiago/go-boilerplate/initializers"
+	"github.com/engtiago/go-boilerplate/middleware"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
@@ -26,10 +27,11 @@ func main() {
 
 	//users
 	app.Post("/users", controllers.PostUser)
-	app.Get("/users/:id", controllers.GetUser)
-	app.Get("/users", controllers.GetUsers)
-	app.Put("/users/:id", controllers.PutUser)
-	app.Delete("/users/:id", controllers.DeleteUsers)
+
+	app.Get("/users/:id", middleware.RequireAuth, controllers.GetUser)
+	app.Get("/users", middleware.RequireAuth, controllers.GetUsers)
+	app.Put("/users/:id", middleware.RequireAuth, controllers.PutUser)
+	app.Delete("/users/:id", middleware.RequireAuth, controllers.DeleteUsers)
 
 	port := os.Getenv("PORT")
 	app.Listen(port)
