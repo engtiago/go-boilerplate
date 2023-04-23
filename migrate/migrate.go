@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/engtiago/go-boilerplate/initializers"
-	"github.com/engtiago/go-boilerplate/models"
+	"github.com/engtiago/go-boilerplate/src/initializers"
+	"github.com/engtiago/go-boilerplate/src/models"
 )
 
 func init() {

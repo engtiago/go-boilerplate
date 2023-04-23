@@ -3,9 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/engtiago/go-boilerplate/controllers"
-	"github.com/engtiago/go-boilerplate/initializers"
-	"github.com/engtiago/go-boilerplate/middleware"
+	"github.com/engtiago/go-boilerplate/src/initializers"
+	"github.com/engtiago/go-boilerplate/src/routers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
@@ -22,16 +21,7 @@ func main() {
 		AllowOrigins: "*",
 	}))
 
-	//login
-	app.Post("/login", controllers.PostLogin)
-
-	//users
-	app.Post("/users", controllers.PostUser)
-
-	app.Get("/users/:id", middleware.RequireAuth, controllers.GetUser)
-	app.Get("/users", middleware.RequireAuth, controllers.GetUsers)
-	app.Put("/users/:id", middleware.RequireAuth, controllers.PutUser)
-	app.Delete("/users/:id", middleware.RequireAuth, controllers.DeleteUsers)
+	routers.ApiRoutes(app)
 
 	port := os.Getenv("PORT")
 	app.Listen(port)
