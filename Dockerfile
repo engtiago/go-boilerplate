@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.19
+FROM golang:1.19 as build
 
 # Set destination for COPY
 WORKDIR /app
@@ -9,20 +9,24 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Copy the source code. Note the slash at the end, as explained in
-# https://docs.docker.com/engine/reference/builder/#copy
-COPY *.go ./
+# Copy the source code
 COPY . .
 
 # Build
-RUN CGO_ENABLED=0 GOOS=linux go build -o /server
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/server
 
-# Optional:
-# To bind to a TCP port, runtime parameters must be supplied to the docker command.
-# But we can document in the Dockerfile what ports
-# the application is going to listen on by default.
-# https://docs.docker.com/engine/reference/builder/#expose
+# TODO: Estudar distroless
+FROM gcr.io/distroless/base-debian11
+
+# Set the working directory
+WORKDIR /app
+
+# Copy server binary and .env file to /app
+COPY --from=build /app/server /app/server
+COPY --from=build /app/.env /app/.env
+
 EXPOSE 3000
 
-# Run
-CMD ["/server"]
+USER nonroot:nonroot
+
+ENTRYPOINT [ "/app/server" ]
