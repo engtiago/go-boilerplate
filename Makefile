@@ -8,10 +8,19 @@ migratedb:
 	go run migrate/migrate.go
 
 createdocker:
-	docker build . -t go-server
+	docker image rm go-server -f && docker build . -t go-server
 
 rundocker:
 	docker rm goserver -f && docker run --name goserver -p 3000:3000 go-server
 
 createfulldocker:
-	docker image rm go-server -f && make createdocker && make rundocker
+	 make createdocker && make rundocker
+
+generateimage:
+	docker save -o go-server.tar go-server:latest
+
+gitlabserver:
+	docker build . -t registry.gitlab.com/engtiago/go-boilerplate/go-server && docker push registry.gitlab.com/engtiago/go-boilerplate/go-server
+
+rungitlabdocker:
+	docker compose up -d

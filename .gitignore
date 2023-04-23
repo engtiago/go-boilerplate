@@ -3,6 +3,7 @@
 #
 # Binaries for programs and plugins
 go-boilerplate.exe
+go-server.tar
 *.exe
 *.exe~
 *.dll
