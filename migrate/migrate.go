@@ -5,7 +5,6 @@ import (
 	"log"
 
 	"github.com/engtiago/go-boilerplate/src/initializers"
-	"github.com/engtiago/go-boilerplate/src/models"
 )
 
 func init() {
@@ -14,10 +13,13 @@ func init() {
 }
 
 func main() {
-	err := initializers.DB.AutoMigrate(&models.User{})
 
-	if err != nil {
-		log.Fatal("Migrate error")
+	for _, model := range RegisterModels() {
+		err := initializers.DB.AutoMigrate(model.Model)
+		if err != nil {
+			log.Fatal("Migrate error")
+		}
 	}
+
 	fmt.Println("Migrate success")
 }
