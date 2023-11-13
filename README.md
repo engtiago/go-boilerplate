@@ -1,35 +1,35 @@
 # 🚀 Go-Boilerplate
 
-Go-Boilerplate é um robusto repositório base para aplicações back-end em Go. Este projeto fornece uma estrutura inicial para o desenvolvimento de aplicações web robustas, focando na autenticação e gerenciamento de usuários.
+Go-Boilerplate is a robust base repository for back-end applications in Go. This project provides an initial structure for the development of robust web applications, focusing on authentication and user management.
 
-## 📚 Descrição
+## 📚 Description
 
-O projeto é organizado em vários diretórios, cada um com um propósito específico no ciclo de vida da aplicação:
+The project is organized into several directories, each with a specific purpose in the application lifecycle:
 
-- 🎛️ `controllers`: Este diretório contém a lógica de negócios para operações de autenticação de usuário (loginController.go) e gerenciamento de usuários (usersController.go). As funções nesses arquivos lidam com a obtenção, criação, atualização e exclusão de usuários.
+- 🎛️ `controllers`: This directory contains the business logic for user authentication operations (loginController.go) and user management (usersController.go). The functions in these files deal with obtaining, creating, updating, and deleting users.
 
-- 🚀 `initializers`: Este diretório é responsável por inicializar os componentes necessários para o funcionamento da aplicação.
+- 🚀 `initializers`: This directory is responsible for initializing the components necessary for the application to function.
 
-- 🛡️ `middleware`: Este diretório gerencia os middlewares usados ​​na aplicação.
+- 🛡️ `middleware`: This directory manages the middlewares used in the application.
 
-- 📄 `models`: Este diretório contém o modelo de usuário (userModel.go), que define a estrutura de um 'User' no banco de dados com campos para 'Name', 'Email' e 'Password'.
+- 📄 `models`: This directory contains the user model (userModel.go), which defines the structure of a 'User' in the database with fields for 'Name', 'Email', and 'Password'.
 
-- 🌐 `routers`: Este diretório gerencia as rotas da aplicação.
+- 🌐 `routers`: This directory manages the application's routes.
 
-## 📦 Dependências
+## 📦 Dependencies
 
-O projeto utiliza várias bibliotecas Go de alto nível:
+The project uses several high-level Go libraries:
 
-- `github.com/gofiber/fiber/v2`: Para a criação de uma aplicação web eficiente e flexível.
+- `github.com/gofiber/fiber/v2`: For creating an efficient and flexible web application.
 
-- `github.com/golang-jwt/jwt/v5`: Usada para a geração de tokens JWT para autenticação de usuário.
+- `github.com/golang-jwt/jwt/v5`: Used for generating JWT tokens for user authentication.
 
-- `golang.org/x/crypto/bcrypt`: Usada para o hashing de senhas ao criar novos usuários.
+- `golang.org/x/crypto/bcrypt`: Used for password hashing when creating new users.
 
-- `gorm.io/gorm`: Usada para a interação com o banco de dados.
+- `gorm.io/gorm`: Used for interacting with the database.
 
-Além disso, o projeto também inclui arquivos Dockerfile e Makefile, indicando que o projeto pode ser contêinerizado para implantação e utiliza o `make` para automatizar tarefas comuns.
+Additionally, the project also includes Dockerfile and Makefile files, indicating that the project can be containerized for deployment and uses `make` to automate common tasks.
 
-## 🎉 Conclusão
+## 🎉 Conclusion
 
-Go-Boilerplate é uma base sólida para qualquer desenvolvedor que deseja iniciar um novo projeto em Go. Com foco em autenticação e gerenciamento de usuários, este projeto simplifica a inicialização de novas aplicações, permitindo que os desenvolvedores se concentrem em construir funcionalidades únicas para suas aplicações. 🥳
+Go-Boilerplate is a solid foundation for any developer who wants to start a new project in Go. With a focus on authentication and user management, this project simplifies the initiation of new applications, allowing developers to focus on building unique features for their applications. 🥳
